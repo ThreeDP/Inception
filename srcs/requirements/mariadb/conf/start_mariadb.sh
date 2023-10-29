@@ -2,9 +2,9 @@
 
 rc-service mariadb start
 
-while ! rc-service mariadb status | grep -q "is running"; do
-    sleep 1
-done
+# while ! rc-service mariadb status | grep -q "is running"; do
+#     sleep 1
+# done
 
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
 	echo "\e[0;91m" " [ Database already exists ] " "\e[0m"
