@@ -20,7 +20,7 @@ if [ ! -f ./wp-config.ph ]; then
 	wp user create --allow-root 
 		$MYSQL_USER										\
 		$USER_MAIL 										\
-		--user_pass=$MYSQL_PASSWORD
-if
+		--user_pass=$MYSQL_PASSWORD;
+fi
 
-php-fpm -R
+php-fpm8 -R

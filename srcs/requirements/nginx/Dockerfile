@@ -1,5 +1,5 @@
 # Linux Version
-ARG IMAGE=alpine:
+ARG IMAGE=alpine
 ARG VERSION=3.16
 
 # Linux Image
@@ -20,6 +20,7 @@ RUN if [ ! -f certificate.pem ]; then \
     -nodes \
     -keyout certificate.pem \
     -out certificate.pem.pub \
+    -subj "/C=BR/ST=SP/L=Itaquera/O=42/OU=42/CN=dapaulin@42.fr"; \
 fi
 
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]

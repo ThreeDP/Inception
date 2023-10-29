@@ -60,13 +60,13 @@ services:
     secrets:
       - secrets_env
 
-  ngnix:
-    container_name: ngnix
-    image: ngnix
+  nginx:
+    container_name: nginx
+    image: nginx
     restart: always
     depends_on:
       - wordpress
-    build: requirements/ngnix
+    build: requirements/nginx
     volumes:
       - wordpress-volume:/var/www/wordpress
       - ./requirements/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf      
