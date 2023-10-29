@@ -21,4 +21,4 @@ RUN ash start_mariadb.sh
 
 EXPOSE 3306
 
-ENTRYPOINT [ "mysql", "--bind-address=0.0.0.0" ]
+ENTRYPOINT [ "mysqld", "--bind-address=0.0.0.0" ]
