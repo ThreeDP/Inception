@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mysqld &
+mysqld --user=mysql --datadir='/var/lib/mysql' --socket='/run/mysqld/mysqld.sock' --skip-networking &
 
 while ! mysqladmin ping -h127.0.0.1 --silent; do
     sleep 1
