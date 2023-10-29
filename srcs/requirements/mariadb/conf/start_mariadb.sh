@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rc-service mysql start
+rc-service mariadb start
 
 while ! rc-service mariadb status | grep -q "is running"; do
     sleep 1
