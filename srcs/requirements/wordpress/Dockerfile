@@ -16,7 +16,6 @@ RUN wp-cli.phar --info
 RUN chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
-
 RUN mkdir -p /var/www/wordpress
 ADD ./conf /var/www/wordpress
 WORKDIR /var/www/wordpress
