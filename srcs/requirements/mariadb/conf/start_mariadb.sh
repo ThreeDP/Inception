@@ -2,7 +2,7 @@
 
 rc-service mysql start
 
-while ! rc-service mysql status | grep -q "is running"; do
+while ! rc-service mariadb status | grep -q "is running"; do
     sleep 1
 done
 
