@@ -27,4 +27,4 @@ RUN wp core download --allow-root
 EXPOSE 9000
 
 RUN chmod +x start_wordpress.sh
-ENTRYPOINT [ "bash", "start_wordpress.sh" ]
+ENTRYPOINT [ "ash", "start_wordpress.sh" ]
