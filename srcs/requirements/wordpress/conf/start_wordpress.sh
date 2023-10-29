@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 USER_MAIL=$MYSQL_USER@student.42sp.org.br
 

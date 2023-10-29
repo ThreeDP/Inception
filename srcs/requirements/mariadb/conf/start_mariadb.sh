@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 # start mariadb service
 systemctl start mysqld
+
+sleep 4;
 # Check if the MariaDB service started successfully
 if  systemctl is-active --quiet mysqld; then
 	if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
