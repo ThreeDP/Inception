@@ -1,29 +1,5 @@
 version: "3.8"
 
-volumes:
-  mariadb-volume:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      devide: /home/dapaulin/data/mariadb
-    
-  wordpress-volume:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      devide: /home/dapaulin/data/wordpress
-
-networks:
-  back_network:
-
-  front_network:
-
-secrets:
-  secrets_env:
-    file: .env
-
 services:
   mariadb:
     container_name: mariadb
@@ -75,4 +51,26 @@ services:
     ports:
       - 443:443
 
-  
+volumes:
+  mariadb-volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dapaulin/data/mariadb
+    
+  wordpress-volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dapaulin/data/wordpress
+
+networks:
+  back_network:
+
+  front_network:
+
+secrets:
+  secrets_env:
+    file: .env
