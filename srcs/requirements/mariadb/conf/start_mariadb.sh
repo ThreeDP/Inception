@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mysqld --user=mysql --datadir='/var/lib/mysql' --socket='/run/mysqld/mysqld.sock' --skip-networking &
+rc-service mysql start
 
-while ! mysqladmin ping -h127.0.0.1 --silent; do
+while ! rc-service mysql status | grep -q "is running"; do
     sleep 1
 done
 

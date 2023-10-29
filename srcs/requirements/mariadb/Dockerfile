@@ -7,7 +7,7 @@ FROM ${IMAGE}:${VERSION}
 
 # Update the apks and install mariadb
 RUN apk update
-RUN	apk add mariadb
+RUN	apk add --no-cache mariadb mariadb-client
 
 ARG MYSQL_DATABASE
 ARG MYSQL_ROOT
