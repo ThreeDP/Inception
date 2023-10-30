@@ -8,6 +8,7 @@ build:
 	sudo cat /etc/hosts | grep dapaulin.42.fr || echo "127.0.0.1 dapaulin.42.fr"
 	sudo mkdir -p /home/dapaulin/data/mariadb
 	sudo mkdir -p /home/dapaulin/data/wordpress
+	docker-compose -f $(COMPOSE) build
 
 up:
 	docker-compose -f $(COMPOSE) up -d

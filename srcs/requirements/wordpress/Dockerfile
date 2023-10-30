@@ -12,19 +12,20 @@ RUN apk update &&			\
 	php8-pdo				\
 	php8-pdo_mysql			\
 	php8-phar				\
-	mariadb-client --no-cache
+	mysql-client --no-cache
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
 RUN mkdir -p /var/www/wordpress
-ADD ./conf /var/www/wordpress
+COPY ./conf/start_wordpress.sh /var/www/wordpress/start_wordpress.sh
 WORKDIR /var/www/wordpress
 
 RUN wp core download --allow-root
 
 EXPOSE 9000
+RUN echo "listen = 0.0.0.0:9000" >> /etc/php8/php-fpm.d/www.conf
 
 RUN chmod +x start_wordpress.sh
-ENTRYPOINT [ "ash", "start_wordpress.sh" ]
+ENTRYPOINT [ "ash", "-f", "start_wordpress.sh" ]

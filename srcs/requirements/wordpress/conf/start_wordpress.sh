@@ -7,8 +7,9 @@ if [ ! -f ./wp-config.ph ]; then
 		--dbname=$MYSQL_DATABASE						\
 		--dbuser=$MYSQL_USER							\
 		--dbpass=$MYSQL_PASSWORD						\
-		--dbhost=$HOST_NAME								\
-		--dbprefix='wp_'								
+		--dbhost=localhost								\
+		--dbprefix='wp_'							\
+		--dbcharset='utf8'	
 
 	wp core install --allow-root
 		--url=https://$DOMAIN_NAME						\
@@ -23,4 +24,4 @@ if [ ! -f ./wp-config.ph ]; then
 		--user_pass=$MYSQL_PASSWORD;
 fi
 
-php-fpm8 -R
+php-fpm8 -F -R
