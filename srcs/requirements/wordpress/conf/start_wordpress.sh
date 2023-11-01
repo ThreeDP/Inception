@@ -1,27 +1,34 @@
 #!/bin/sh
 
-USER_MAIL=$MYSQL_USER@student.42sp.org.br
+while ! mysql -u "$WP_DB_USER" -p"$WP_DB_PASSWORD" -h "$WP_DATABASE_HOST" -e "SHOW STATUS;"; do
+	sleep 10
+done
 
-if [ ! -f ./wp-config.ph ]; then
+if [ ! -f ./wp-config.php ]; then
+	echo "$WP_ROOT $WP_ROOT_PASSWORD"
 	wp config create --allow-root 						\
-		--dbname=$MYSQL_DATABASE						\
-		--dbuser=$MYSQL_USER							\
-		--dbpass=$MYSQL_PASSWORD						\
-		--dbhost=localhost								\
-		--dbprefix='wp_'							\
+		--path=/var/www/wordpress						\
+		--dbname=$WP_DATABASE							\
+		--dbuser=$WP_DB_USER							\
+		--dbpass=$WP_DB_PASSWORD						\
+		--dbhost=$WP_DATABASE_HOST						\
+		--dbprefix='wp_'								\
+		--dbcollate='utf8_general_ci'					\
 		--dbcharset='utf8'	
 
-	wp core install --allow-root
-		--url=https://$DOMAIN_NAME						\
+	wp core install --allow-root						\
+		--path=/var/www/wordpress						\
+		--url=dapaulin.42.fr							\
 		--title="Ohhhh God Dawn"						\
-		--admin_user=$MYSQL_USER						\
-		--admin_password=$MYSQL_PASSWORD				\
-		--admin_email=$USER_MAIL
+		--admin_user=$WP_ROOT							\
+		--admin_password=$WP_ROOT_PASSWORD				\
+		--admin_email=$WP_ROOT@student.42sp.org.br
 
-	wp user create --allow-root 
-		$MYSQL_USER										\
-		$USER_MAIL 										\
-		--user_pass=$MYSQL_PASSWORD;
+	wp user create --allow-root 						\
+		--path=/var/www/wordpress						\
+		$WP_USER										\
+		$WP_USER@student.42sp.org.br 					\
+		--user_pass=$WP_PASSWORD
 fi
 
-php-fpm8 -F -R
+php-fpm81 -F -R

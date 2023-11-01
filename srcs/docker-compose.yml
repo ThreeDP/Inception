@@ -1,4 +1,11 @@
-version: "3.8"
+version: '3'
+
+networks:
+  inception_network:
+
+secrets:
+  secrets_env:
+    file: .env
 
 services:
   mariadb:
@@ -7,16 +14,16 @@ services:
     restart: always
     build:
       context: requirements/mariadb
-      args:
-        - MYSQL_DATABASE
-        - MYSQL_ROOT
-        - MYSQL_ROOT_PASSWORD
-        - MYSQL_USER
-        - MYSQL_PASSWORD
+    environment:
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT: "${MYSQL_ROOT}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       - mariadb-volume:/var/lib/mysql
     networks:
-      - _network
+      - inception_network
     secrets:
       - secrets_env
 
@@ -28,10 +35,19 @@ services:
       context: requirements/wordpress
     depends_on:
       - mariadb
+    environment:
+      WP_DATABASE: "${MYSQL_DATABASE}"
+      WP_DB_USER: "${MYSQL_USER}"
+      WP_DB_PASSWORD: "${MYSQL_PASSWORD}"
+      WP_USER: "${WP_USER}"
+      WP_PASSWORD: "${WP_PASSWORD}"
+      WP_ROOT: "${WP_ROOT}"
+      WP_ROOT_PASSWORD: "${WP_ROOT_PASSWORD}"
+      WP_DATABASE_HOST: "mariadb"
     volumes:
       - wordpress-volume:/var/www/wordpress
     networks:
-      - _network
+      - inception_network
     secrets:
       - secrets_env
 
@@ -46,7 +62,7 @@ services:
       - wordpress-volume:/var/www/wordpress
       - ./requirements/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf      
     networks:
-      - _network
+      - inception_network
     ports:
       - 443:443
 
@@ -64,11 +80,3 @@ volumes:
       type: none
       o: bind
       device: /home/dapaulin/data/wordpress
-
-networks:
-  _network:
-
-
-secrets:
-  secrets_env:
-    file: .env
